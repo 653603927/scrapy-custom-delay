@@ -1,19 +1,16 @@
 # Scrapy-Custom-Delay
 
-[![PyPI](https://img.shields.io/pypi/v/scrapy-domain-delay)](https://pypi.org/project/scrapy-domain-delay/)
-[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/scrapy-domain-delay)](https://pypi.org/project/scrapy-domain-delay/)
-[![Build Status](https://app.travis-ci.com/ChiaYinChen/scrapy-domain-delay.svg?branch=master)](https://app.travis-ci.com/ChiaYinChen/scrapy-domain-delay)
+[![PyPI](https://img.shields.io/pypi/v/scrapy-custom-delay)](https://pypi.org/project/scrapy-custom-delay/)
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/scrapy-custom-delay)](https://pypi.org/project/scrapy-custom-delay/)
 
-`Scrapy-Domain-Delay` is a package that lets you set different delay for different website, using the [Scrapy](https://github.com/scrapy/scrapy) framework.
+`Scrapy-Custom-Delay` is a package that lets you set different delay for different website, using the [Scrapy](https://github.com/scrapy/scrapy) framework.
 
 ## Install
 ```
-$ pip install scrapy-Custom-delay
+$ pip install scrapy-custom-delay
 ```
 
 ## Usage
-
-In this example, we would extract `"google"` as domain name from a full url `"https://www.google.com/"`.
 
 ### Step 1: Use the following config values in your scrapy settings:
 
@@ -32,7 +29,7 @@ In this example, we would extract `"google"` as domain name from a full url `"ht
 	}
 	```
 
-3. Add `{'domain': 'download delay (in seconds)'}` to the `DOMAIN_DELAYS`.
+3. Add `{'regex': 'download delay (in seconds)'}` to the `DOMAIN_DELAYS`.
 
 	something like:
 
