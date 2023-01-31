@@ -1,4 +1,4 @@
-# Scrapy-Domain-Delay
+# Scrapy-Custom-Delay
 
 [![PyPI](https://img.shields.io/pypi/v/scrapy-domain-delay)](https://pypi.org/project/scrapy-domain-delay/)
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/scrapy-domain-delay)](https://pypi.org/project/scrapy-domain-delay/)
@@ -8,22 +8,14 @@
 
 ## Install
 ```
-$ pip install scrapy-domain-delay
+$ pip install scrapy-Custom-delay
 ```
 
 ## Usage
 
-### Step 1: Extract the domain name from a full url using Python tldextract.
-
-```python
->>> import tldextract
->>> tldextract.extract('https://www.google.com/').domain
-'google'
-```
-
 In this example, we would extract `"google"` as domain name from a full url `"https://www.google.com/"`.
 
-### Step 2: Use the following config values in your scrapy settings:
+### Step 1: Use the following config values in your scrapy settings:
 
 1. Enable the AutoThrottle extension.
 
@@ -46,8 +38,9 @@ In this example, we would extract `"google"` as domain name from a full url `"ht
 
 	```python
 	# set up custom delays per domain
+    # if two or more regexes satisfy, the first one will be used
 	DOMAIN_DELAYS = {
-	    'google': 1.0,
-	    'github': 0.5,
+	    r'^images.google.com*$': 1.0,
+	    r'*github*': 0.5,
 	}
 	```

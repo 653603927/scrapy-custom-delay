@@ -1,26 +1,23 @@
 """Custom scrapy extensions."""
 import logging
+import re
 
 from scrapy.extensions.throttle import AutoThrottle
-
-import tldextract
+from scrapy.http import Response
 
 
 class CustomDelayThrottle(AutoThrottle):
-    """Set custom `DOWNLOAD_DELAY`for different domain."""
+    """Set custom `DOWNLOAD_DELAY`for different url regex."""
 
     def __init__(self, crawler):
         """Initialize the custom delay throttle."""
-        self.domain_delays = crawler.settings.getdict('DOMAIN_DELAYS')
-        logging.debug('Using Custom AutoThrottle')
+        self.urlRegex_delays: dict = crawler.settings.getdict('DOMAIN_DELAYS')
+        logging.debug('Using Custom delay for each url regex')
         super().__init__(crawler)
 
-    def _adjust_delay(self, slot, latency, response):
+    def _adjust_delay(self, slot, latency: float, response: Response):
         """Override AutoThrottle._adjust_delay()."""
-        site_domain = tldextract.extract(response.url).domain
-        if site_domain in self.domain_delays:
-            if response.status != 200:
-                return
-            slot.delay = self.domain_delays[site_domain]
-        else:
-            super()._adjust_delay(slot, latency, response)
+        for regex, delay in self.urlRegex_delays.items():
+            if re.match(regex, response.url):
+                slot.delay = delay
+                break
